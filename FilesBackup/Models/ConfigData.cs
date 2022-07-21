@@ -12,6 +12,6 @@ namespace FilesBackup.Models
         public string destinationDirectory { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public LogLevel logLevel { get; set; } = LogLevel.None;
-        public string logDirectory { get; set; } 
+        public string logDirectory { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
     }
 }

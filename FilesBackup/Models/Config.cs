@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FilesBackup.Utils;
+using Newtonsoft.Json;
 
 namespace FilesBackup.Models
 {
@@ -16,11 +17,18 @@ namespace FilesBackup.Models
                     try
                     {
                         configData = (ConfigData)jsonSerializer.Deserialize(file, typeof(ConfigData))!;
+                        ValidateData();
                     }
-                    catch (JsonSerializationException) { throw new JsonSerializationException("Serialization ended with errors"); }
+                    catch (JsonSerializationException e) { throw new JsonSerializationException($"Serialization ended with Errors: {e.Message}"); }
                 }
             }
-            else throw new FileNotFoundException($"File doesn't exist at path: {_configPath}");
+            else throw new FileNotFoundException($"File doesn't exist: {_configPath}");
+        }
+        private void ValidateData()
+        {
+            if (!Directory.Exists(configData.sourceDirectory)) throw new DirectoryNotFoundException($"Directory doesn't exist: {configData.sourceDirectory}");
+            if (!Directory.Exists(configData.destinationDirectory)) throw new DirectoryNotFoundException($"Directory doesn't exist: {configData.destinationDirectory}");
+            if (!Directory.Exists(configData.logDirectory)) throw new DirectoryNotFoundException($"Directory doesn't exist: {configData.logDirectory}");
         }
     }
 }

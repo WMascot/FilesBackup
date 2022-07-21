@@ -13,7 +13,11 @@ namespace FilesBackup.Models
                 using(var file = File.OpenText(_configPath))
                 {
                     JsonSerializer jsonSerializer = new JsonSerializer();
-                    configData = (ConfigData)jsonSerializer.Deserialize(file, typeof(ConfigData))!;
+                    try
+                    {
+                        configData = (ConfigData)jsonSerializer.Deserialize(file, typeof(ConfigData))!;
+                    }
+                    catch (JsonSerializationException) { throw new JsonSerializationException("Serialization ended with errors"); }
                 }
             }
             else throw new FileNotFoundException($"File doesn't exist at path: {_configPath}");

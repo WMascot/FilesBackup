@@ -16,6 +16,7 @@ namespace FilesBackup.Models
         }
         private void CreateLog()
         {
+            if (logLevel == LogLevel.None) return;
             var logName = $"Log_{DateTime.Now.ToString("dd_MM_yyyy_HH_mm")}.txt";
             var fullPath = Path.Combine(logDirectory, logName);
             try
@@ -26,6 +27,7 @@ namespace FilesBackup.Models
         }
         public void WriteLog(string message, LogLevel level)
         {
+            if (logLevel == LogLevel.None) return;
             if (logLevel < level) return;
             logWriter.WriteLine($"{DateTime.Now} {level} " + message);
             logWriter.Flush();

@@ -1,9 +1,8 @@
 ﻿using FilesBackup.Models;
 
-Backup backup = new Backup();
-
 try
 {
+    Backup backup = new Backup();
     backup.StartBackup();
 }
 catch (Exception ex)

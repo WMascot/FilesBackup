@@ -11,5 +11,18 @@ namespace FilesBackup.Models
             config = new Config();
             log = new Log(config.configData.logLevel, config.configData.logDirectory);
         }
+        public void StartBackup()
+        {
+            CreateTimeStampedDirectory();
+            CopyFilesystem();
+        }
+        private void CreateTimeStampedDirectory()
+        {
+
+        }
+        private void CopyFilesystem()
+        {
+
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace FilesBackup.Models
             log.WriteLog("Starting Backup", LogLevel.Info);
             CreateTimeStampedDirectory();
             CopyFilesystem();
+            log.WriteLog("End of backup", LogLevel.Info);
             log.WriteLog($"Backup ended with {errorsCount} Errors", LogLevel.Debug);
         }
         private void CreateTimeStampedDirectory()

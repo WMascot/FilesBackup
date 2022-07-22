@@ -17,7 +17,12 @@ namespace FilesBackup.Models
         private void CreateLog()
         {
             var logName = $"Log_{DateTime.Now.ToString("dd_MM_yyyy_HH_mm")}.txt";
-            logWriter = File.CreateText(logDirectory + $"\\{logName}");
+            var fullPath = Path.Combine(logDirectory, logName);
+            try
+            {
+                logWriter = File.CreateText(fullPath);
+            }
+            catch (Exception ex) { throw new Exception($"Failed creating log file: {ex.Message}"); }
         }
         public void WriteLog(string message, LogLevel level)
         {
